@@ -26,15 +26,11 @@ public class App {
 
         int result = JOptionPane.showConfirmDialog(null, configScreen, "JDBC Executor",
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE);
-        if (result == JOptionPane.OK_OPTION) {
-            // do something with info
 
+        if (result == JOptionPane.OK_OPTION) {
             for (ConfigScreen.FieldTitle fieldTitle : ConfigScreen.FieldTitle.values()) {
-                // System.out.printf("%10s: %s%n", fieldTitle.getTitle(),
-                // configScreen.getFieldText(fieldTitle));
                 values.add(configScreen.getFieldText(fieldTitle));
             }
-
             String url = "jdbc:sqlserver://" + values.get(0) + ";"
                     + "database=TSQLV4;"
                     + "user=" + values.get(1) + ";"
@@ -42,17 +38,22 @@ public class App {
                     + "encrypt=true;"
                     + "trustServerCertificate=True;"
                     + "hostNameInCertificate=*.";
+
             try {
                 conn = DriverManager.getConnection(url);
                 statement = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-                configScreen.setEnabled(false);
                 System.out.println("logged in successfully");
+                configScreen.setEnabled(false);
+                textEditorScreen = new TextEditorScreen(statement, conn);
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Something went wrong with your query error:\n" + e.toString(),
+                JOptionPane.showMessageDialog(null, "Something went wrong with your login:\n" + e.toString(),
                         "JDBC Executor",
                         JOptionPane.ERROR_MESSAGE);
-                return;
+                System.exit(0);
             }
+        }
+        if (result == JOptionPane.CANCEL_OPTION) {
+            System.exit(0);
         }
     }
 }
