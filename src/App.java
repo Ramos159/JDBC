@@ -83,7 +83,6 @@ public class App {
             if (values.get(0) == "none") {
                 values.remove(0);
             }
-
             String url = "jdbc:sqlserver://" + values.get(0) + ";"
                     + "database=TSQLV4;"
                     + "user=" + values.get(1) + ";"
