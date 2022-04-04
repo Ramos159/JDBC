@@ -1,8 +1,0 @@
-{
-    "java.project.sourcePaths": ["src"],
-    "java.project.outputPath": "bin",
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "/Users/edwinramos/Downloads/sqljdbc_10.2\\enu/mssql-jdbc-10.2.0.jre8.jar"
-    ]
-}
